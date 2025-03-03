@@ -11,7 +11,7 @@ SELECT
     l.listing_name,
     r.total_reviews
 FROM {{ ref('stg_raw_airbnb_data__listings') }} l
-LEFT JOIN review_counts r ON l.listing_id = r.listing_id
+JOIN review_counts r ON l.listing_id = r.listing_id
 )
 
 select * from listing_popularity

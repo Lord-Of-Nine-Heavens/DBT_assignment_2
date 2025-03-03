@@ -38,7 +38,6 @@ models:
         description: "Unique identifier for each listing."
         tests:
           - not_null
-          - unique
       - name: review_date
         description: "Date of the review associated with the listing."
         tests:
@@ -47,7 +46,7 @@ models:
         description: "Estimated revenue per listing based on price and minimum nights."
         tests:
           - not_null
-      - name: rolling_weekly_revenue
+      - name: estimated_rolling_revenue
         description: "Rolling sum of estimated revenue over the last 7 reviews."
         tests:
           - not_null

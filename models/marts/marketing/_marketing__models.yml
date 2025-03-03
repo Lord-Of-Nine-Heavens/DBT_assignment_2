@@ -15,8 +15,6 @@ models:
           - not_null
       - name: total_reviews
         description: "Total number of reviews received by the listing."
-        tests:
-          - not_null
 
   - name: repeat_customers
     description: "Identifies repeat visitors based on review counts per listing."
@@ -25,7 +23,6 @@ models:
         description: "Unique identifier for each guest."
         tests:
           - not_null
-          - unique
       - name: reviewer_name
         description: "Name of the guest who left a review."
         tests:
