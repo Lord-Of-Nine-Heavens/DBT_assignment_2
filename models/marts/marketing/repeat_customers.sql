@@ -1,23 +1,23 @@
-WITH guest_bookings AS (
-    SELECT
+with guest_bookings as (
+    select
         reviewer_id,
         reviewer_name,
         listing_id,
-        COUNT(review_id) AS review_count
-    FROM {{ ref('stg_raw_airbnb_data__reviews') }}
-    GROUP BY reviewer_id, reviewer_name, listing_id
+        count(review_id) as review_count
+    from {{ ref('stg_raw_airbnb_data__reviews') }}
+    group by reviewer_id, reviewer_name, listing_id
 ),
-repeat_visitors AS (
-    SELECT
+repeat_visitors as (
+    select
         reviewer_id,
         reviewer_name,
         listing_id,
         review_count,
-        CASE
-            WHEN review_count > 1 THEN 'Repeat Visitor'
-            ELSE 'One-Time Visitor'
-        END AS visit_type
-    FROM guest_bookings
+        case
+            when review_count > 1 then 'repeat visitor'
+            else 'one-time visitor'
+        end as visit_type
+    from guest_bookings
 )
 
-SELECT * FROM repeat_visitors
+select * from repeat_visitors
