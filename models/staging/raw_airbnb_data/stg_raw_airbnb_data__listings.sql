@@ -1,3 +1,9 @@
+{{ config(
+    materialized='incremental',
+    unique_key='listing_id',
+    incremental_strategy='merge'
+) }}
+
 {%- set table_name = source('raw_airbnb', 'raw_listings').identifier.split('.')[-1] -%}
 {%- set columns = get_column_names(table_name) -%}
 
@@ -30,6 +36,9 @@ transformed as (
         and
     {%- endif -%}
     {%- endfor -%}
+    {% if is_incremental() %}
+    and updated_at > (SELECT MAX(updated_at) FROM {{ this }})
+    {% endif %}
 
 )
 
