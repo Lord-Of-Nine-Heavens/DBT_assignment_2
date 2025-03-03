@@ -9,6 +9,7 @@ models:
         tests:
           - not_null
           - unique
+
       - name: listing_name
         description: "Name of the listing."
         tests:
