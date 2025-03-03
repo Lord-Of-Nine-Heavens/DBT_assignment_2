@@ -1,0 +1,54 @@
+name: CI/CD for dbt
+
+on:
+  push:
+    branches:
+      - ankur-patch-1
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  dbt-test:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/ankur-patch-1'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dbt
+        run: pip install dbt-core dbt-postgres # Adjust for your adapter
+
+      - name: Run dbt Debug
+        run: dbt debug
+
+      - name: Run dbt Tests
+        run: dbt test
+
+  dbt-deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: dbt-test
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dbt
+        run: pip install dbt-core dbt-postgres # Adjust for your adapter
+
+      - name: Run dbt Seed (if applicable)
+        run: dbt seed
+
+      - name: Run dbt build
+        run: dbt build
