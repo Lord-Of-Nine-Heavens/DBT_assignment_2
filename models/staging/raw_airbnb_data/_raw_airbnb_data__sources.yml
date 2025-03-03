@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_airbnb
+    database: dbt_assignment2
+    schema: raw_airbnb_data
+    tables:
+      - name: raw_hosts
+      - name: raw_listings
+      - name: raw_reviews
