@@ -1,4 +1,4 @@
-echo "target/" >> .gitignore
+echo "target/" >> .gitignoreg
 target/
 dbt_packages/
 logs/
