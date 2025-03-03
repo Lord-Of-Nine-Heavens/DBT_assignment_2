@@ -4,7 +4,54 @@ sources:
   - name: raw_airbnb
     database: dbt_assignment2
     schema: raw_airbnb_data
+    description: "This is the source for the raw airbnb data"
     tables:
-      - name: raw_hosts
       - name: raw_listings
+        description: "Contains details of Airbnb property listings in Rio de Janeiro, including location, price, property type, and availability."
+        columns:
+          - name: id
+            description: "Unique identifier for each listing."
+          - name: listing_url
+            description: "URL of the listing on Airbnb's website."
+          - name: name
+            description: "Title of the listing."
+          - name: room_type
+            description: "Type of room offered (e.g., Entire home, Private room, Shared room)."
+          - name: minimum_nights
+            description: "Minimum number of nights required for booking."
+          - name: host_id
+            description: "Unique identifier for the host of the listing."
+          - name: price
+            description: "Price per night for the listing."
+          - name: created_at
+            description: "Date when the listing was created."
+          - name: updated_at
+            description: "Date when the listing was last updated."
+
+      - name: raw_hosts
+        description: "Contains information about Airbnb hosts, including their profile details, number of listings, and host verification status."
+        columns:
+          - name: id
+            description: "Unique identifier for each host."
+          - name: name
+            description: "Name of the host."
+          - name: is_superhost
+            description: "Indicates if the host is a Superhost (TRUE/FALSE)."
+          - name: created_at
+            description: "Date when the host account was created."
+          - name: updated_at
+            description: "Date when the host account was last updated."
+
       - name: raw_reviews
+        description: "Contains reviews and ratings given by guests for Airbnb listings in Rio de Janeiro."
+        columns:
+          - name: id
+            description: "Unique identifier for each review."
+          - name: listing_id
+            description: "ID of the listing that the review belongs to."
+          - name: date
+            description: "Date when the review was posted."
+          - name: reviewer_id
+            description: "Unique identifier of the reviewer."
+          - name: reviewer_name
+            description: "Name of the person who wrote the review."
