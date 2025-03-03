@@ -1,0 +1,114 @@
+version: 2
+
+models:
+  - name: stg_raw_airbnb_data__reviews
+    description: "Staging model for Airbnb reviews in Rio de Janeiro. Cleans and standardizes raw review data."
+    columns:
+      - name: review_id
+        description: "Unique identifier for each review."
+        tests:
+          - not_null
+          - unique
+
+      - name: listing_id
+        description: "ID of the listing that the review belongs to."
+        tests:
+          - not_null
+
+      - name: review_date
+        description: "Date when the review was posted."
+        tests:
+          - not_null
+
+      - name: reviewer_id
+        description: "Unique identifier of the reviewer."
+        tests:
+          - not_null
+
+      - name: reviewer_name
+        description: "Name of the reviewer."
+        tests:
+          - not_null
+
+  - name: stg_raw_airbnb_data__listings
+    description: "Staging model for Airbnb listings in Rio de Janeiro. Cleans and transforms listing data."
+    columns:
+      - name: listing_id
+        description: "Unique identifier for each listing."
+        tests:
+          - not_null
+          - unique
+
+      - name: listing_url
+        description: "URL link to the listing on Airbnb."
+        tests:
+          - not_null
+
+      - name: listing_name
+        description: "Title of the Airbnb listing."
+        tests:
+          - not_null
+
+      - name: room_type
+        description: "Type of room offered (e.g., Entire home, Private room, Shared room)."
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                ["Entire home/apt", "Private room", "Shared room", "Hotel room"]
+
+      - name: minimum_nights
+        description: "Minimum nights required for booking."
+        tests:
+          - not_null
+
+      - name: host_id
+        description: "Unique identifier of the host who owns the listing."
+        tests:
+          - not_null
+
+      - name: price_final
+        description: "Price per night for the listing."
+        tests:
+          - not_null
+
+      - name: created_at
+        description: "Timestamp when the listing was created."
+        tests:
+          - not_null
+
+      - name: updated_at
+        description: "Timestamp of the last update to the listing."
+        tests:
+          - not_null
+
+  - name: stg_raw_airbnb_data__hosts
+    description: "Staging model for Airbnb hosts in Rio de Janeiro. Cleans and standardizes host data."
+    columns:
+      - name: host_id
+        description: "Unique identifier for each host."
+        tests:
+          - not_null
+          - unique
+
+      - name: host_name
+        description: "Name of the host."
+        tests:
+          - not_null
+
+      - name: is_superhost
+        description: "Indicates if the host is a Superhost (TRUE/FALSE)."
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["t", "f"]
+
+      - name: created_at
+        description: "Timestamp when the host profile was created."
+        tests:
+          - not_null
+
+      - name: updated_at
+        description: "Timestamp of the last update to the host profile."
+        tests:
+          - not_null

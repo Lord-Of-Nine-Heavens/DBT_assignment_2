@@ -10,13 +10,20 @@ transformed as (
         listing_url,
         name as listing_name,
         room_type,
-        minimum_nights,
+        CASE
+            WHEN minimum_nights = 0 THEN 1
+            ELSE minimum_nights
+        END AS minimum_nights,
         host_id,
-        price,
+        REPLACE(REPLACE(price, '$', ''), ',', '')::NUMBER(10,2) AS price_final,
         created_at,
         updated_at
     from source
     where
+    price_final > 0
+    and
+    minimum_nights > 0 
+    and
     {%- for column in columns %}
     {{ column }} is not null
     {% if not loop.last -%}
