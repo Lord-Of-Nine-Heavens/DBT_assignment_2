@@ -55,7 +55,10 @@ jobs:
       - name: Create profiles.yml
         run: |
           mkdir -p ~/.dbt
-          echo "${{ secrets.DBT_PROFILES_YML }}" | tr -d '\r' > ~/.dbt/profiles.yml
+          echo "${{ secrets.DBT_PROFILES_YML }}" | base64 --decode > ~/.dbt/profiles.yml
+
+      - name: Debug profiles.yml
+        run: cat ~/.dbt/profiles.yml
 
       - name: Run dbt Seed (if applicable)
         run: dbt seed
