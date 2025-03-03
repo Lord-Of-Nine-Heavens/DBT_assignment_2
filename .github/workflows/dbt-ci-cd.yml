@@ -25,6 +25,11 @@ jobs:
       - name: Install dbt
         run: pip install dbt-core dbt-postgres # Adjust for your adapter
 
+      - name: Create profiles.yml
+        run: |
+          mkdir -p ~/.dbt
+          echo "${{ secrets.DBT_PROFILES_YML }}" > ~/.dbt/profiles.yml
+
       - name: Run dbt Debug
         run: dbt debug
 
@@ -46,6 +51,11 @@ jobs:
 
       - name: Install dbt
         run: pip install dbt-core dbt-snowflake # Adjust for your adapter
+
+      - name: Create profiles.yml
+        run: |
+          mkdir -p ~/.dbt
+          echo "${{ secrets.DBT_PROFILES_YML }}" > ~/.dbt/profiles.yml
 
       - name: Run dbt Seed (if applicable)
         run: dbt seed
