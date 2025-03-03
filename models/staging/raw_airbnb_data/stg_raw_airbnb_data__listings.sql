@@ -1,6 +1,7 @@
 {{ config(
     materialized='incremental',
     unique_key='listing_id',
+    cluster_by=['listing_id'],
     incremental_strategy='merge'
 ) }}
 

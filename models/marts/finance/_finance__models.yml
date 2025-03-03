@@ -13,6 +13,7 @@ models:
         description: "Total estimated earnings per host, calculated as price_final * minimum_nights."
         tests:
           - not_null
+          - is_positive
       - name: total_listings
         description: "Total number of listings associated with each host."
         tests:
@@ -30,6 +31,7 @@ models:
         description: "Total estimated revenue per listing."
         tests:
           - not_null
+          - is_positive
 
   - name: pricing_trends
     description: "Revenue trends per listing, including rolling weekly revenue calculations based on reviews."
@@ -46,10 +48,12 @@ models:
         description: "Estimated revenue per listing based on price and minimum nights."
         tests:
           - not_null
+          - is_positive
       - name: estimated_rolling_revenue
         description: "Rolling sum of estimated revenue over the last 7 reviews."
         tests:
           - not_null
+          - is_positive
 
   - name: average_nightly_rate
     description: "Calculates the average nightly rate for each listing."
@@ -63,3 +67,4 @@ models:
         description: "Average nightly rate for each listing."
         tests:
           - not_null
+          - is_positive

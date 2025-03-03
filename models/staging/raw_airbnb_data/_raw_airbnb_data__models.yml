@@ -71,6 +71,7 @@ models:
         description: "Price per night for the listing."
         tests:
           - not_null
+          - is_positive
 
       - name: created_at
         description: "Timestamp when the listing was created."
