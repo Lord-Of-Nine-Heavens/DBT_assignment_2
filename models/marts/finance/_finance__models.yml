@@ -50,3 +50,16 @@ models:
         description: "Rolling sum of estimated revenue over the last 7 reviews."
         tests:
           - not_null
+
+  - name: average_nightly_rate
+    description: "Calculates the average nightly rate for each listing."
+    columns:
+      - name: listing_id
+        description: "Unique identifier for each listing."
+        tests:
+          - not_null
+          - unique
+      - name: avg_nightly_rate
+        description: "Average nightly rate for each listing."
+        tests:
+          - not_null
