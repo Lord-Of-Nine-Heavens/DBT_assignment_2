@@ -23,12 +23,15 @@ jobs:
           python-version: "3.9"
 
       - name: Install dbt
-        run: pip install dbt-core dbt-postgres # Adjust for your adapter
+        run: pip install dbt-core dbt-snowflake # ❌ FIXED: Changed from postgres to snowflake
 
       - name: Create profiles.yml
         run: |
           mkdir -p ~/.dbt
-          echo "${{ secrets.DBT_PROFILES_YML }}" > ~/.dbt/profiles.yml
+          echo "${{ secrets.DBT_PROFILES_YML }}" | base64 --decode > ~/.dbt/profiles.yml  # ✅ FIXED
+
+      - name: Debug profiles.yml
+        run: cat ~/.dbt/profiles.yml
 
       - name: Run dbt Debug
         run: dbt debug
@@ -50,7 +53,7 @@ jobs:
           python-version: "3.9"
 
       - name: Install dbt
-        run: pip install dbt-core dbt-snowflake # Adjust for your adapter
+        run: pip install dbt-core dbt-snowflake
 
       - name: Create profiles.yml
         run: |
