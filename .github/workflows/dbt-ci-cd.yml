@@ -55,7 +55,7 @@ jobs:
       - name: Create profiles.yml
         run: |
           mkdir -p ~/.dbt
-          echo "${{ secrets.DBT_PROFILES_YML }}" > ~/.dbt/profiles.yml
+          echo "${{ secrets.DBT_PROFILES_YML }}" | tr -d '\r' > ~/.dbt/profiles.yml
 
       - name: Run dbt Seed (if applicable)
         run: dbt seed
