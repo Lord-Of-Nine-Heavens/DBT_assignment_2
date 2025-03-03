@@ -1,0 +1,44 @@
+version: 2
+
+models:
+  - name: listing_popularity
+    description: "Measures the popularity of listings based on the number of reviews."
+    columns:
+      - name: listing_id
+        description: "Unique identifier for each listing."
+        tests:
+          - not_null
+          - unique
+      - name: listing_name
+        description: "Name of the listing."
+        tests:
+          - not_null
+      - name: total_reviews
+        description: "Total number of reviews received by the listing."
+        tests:
+          - not_null
+
+  - name: repeat_customers
+    description: "Identifies repeat visitors based on review counts per listing."
+    columns:
+      - name: reviewer_id
+        description: "Unique identifier for each guest."
+        tests:
+          - not_null
+          - unique
+      - name: reviewer_name
+        description: "Name of the guest who left a review."
+        tests:
+          - not_null
+      - name: listing_id
+        description: "Unique identifier for the listing reviewed by the guest."
+        tests:
+          - not_null
+      - name: review_count
+        description: "Total number of reviews left by the guest for a specific listing."
+        tests:
+          - not_null
+      - name: visit_type
+        description: "Categorization of visitors as 'Repeat Visitor' or 'One-Time Visitor' based on review count."
+        tests:
+          - not_null
