@@ -14,8 +14,11 @@ models:
         description: "Name of the listing."
         tests:
           - not_null
+
       - name: total_reviews
         description: "Total number of reviews received by the listing."
+        tests:
+          - not_null
 
   - name: repeat_customers
     description: "Identifies repeat visitors based on review counts per listing."
@@ -24,19 +27,80 @@ models:
         description: "Unique identifier for each guest."
         tests:
           - not_null
+
       - name: reviewer_name
         description: "Name of the guest who left a review."
         tests:
           - not_null
+
       - name: listing_id
         description: "Unique identifier for the listing reviewed by the guest."
         tests:
           - not_null
+
       - name: review_count
         description: "Total number of reviews left by the guest for a specific listing."
         tests:
           - not_null
+
       - name: visit_type
         description: "Categorization of visitors as 'Repeat Visitor' or 'One-Time Visitor' based on review count."
+        tests:
+          - not_null
+
+  - name: host_activity_analysis
+    description: "Analyzes host engagement based on listings, reviews, and activity duration."
+    columns:
+      - name: host_id
+        description: "Unique identifier for each host."
+        tests:
+          - not_null
+          - unique
+
+      - name: host_name
+        description: "Name of the host."
+        tests:
+          - not_null
+
+      - name: is_superhost
+        description: "Boolean flag indicating whether the host is a Superhost."
+        tests:
+          - not_null
+
+      - name: total_listings
+        description: "Total number of listings managed by the host."
+        tests:
+          - not_null
+
+      - name: total_reviews
+        description: "Total number of reviews received across all listings of the host."
+        tests:
+          - not_null
+
+      - name: days_active
+        description: "Number of days since the host's account was created."
+        tests:
+          - not_null
+
+      - name: host_engagement_category
+        description: "Categorization of hosts as 'Highly Engaged Host', 'Active Host', or 'Regular Host' based on their review and listing count."
+        tests:
+          - not_null
+
+  - name: room_type_popularity
+    description: "Analyzes the popularity of different room types based on reviews and average price."
+    columns:
+      - name: room_type
+        description: "Type of room offered in the listing (e.g., Entire home, Private room, Shared room)."
+        tests:
+          - not_null
+
+      - name: total_reviews
+        description: "Total number of reviews received for each room type."
+        tests:
+          - not_null
+
+      - name: avg_price_per_night
+        description: "Average price per night for each room type, rounded to two decimal places."
         tests:
           - not_null

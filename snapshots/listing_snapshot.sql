@@ -7,7 +7,7 @@
     updated_at='updated_at'
 ) }}
 
-SELECT 
+select
     listing_id,
     listing_url,
     listing_name,
@@ -17,6 +17,6 @@ SELECT
     price_final,
     created_at,
     updated_at
-FROM {{ ref('stg_raw_airbnb_data__listings') }}
+from {{ ref('stg_raw_airbnb_data__listings') }}
 
 {% endsnapshot %}

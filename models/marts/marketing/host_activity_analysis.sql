@@ -1,47 +1,47 @@
-WITH host_data AS (
-    SELECT 
+with host_data as (
+    select 
         host_id,
         host_name,
         is_superhost,
         created_at,
         updated_at
-    FROM {{ ref('stg_raw_airbnb_data__hosts') }}
+    from {{ ref('stg_raw_airbnb_data__hosts') }}
 ),
 
-listing_counts AS (
-    SELECT 
+listing_counts as (
+    select 
         host_id, 
-        COUNT(listing_id) AS total_listings
-    FROM {{ ref('stg_raw_airbnb_data__listings') }}
-    GROUP BY host_id
+        count(listing_id) as total_listings
+    from {{ ref('stg_raw_airbnb_data__listings') }}
+    group by host_id
 ),
 
-review_counts AS (
-    SELECT 
+review_counts as (
+    select 
         l.host_id, 
-        COUNT(r.review_id) AS total_reviews
-    FROM {{ ref('stg_raw_airbnb_data__listings') }} l
-    LEFT JOIN {{ ref('stg_raw_airbnb_data__reviews') }} r 
-    ON l.listing_id = r.listing_id
-    GROUP BY l.host_id
+        count(r.review_id) as total_reviews
+    from {{ ref('stg_raw_airbnb_data__listings') }} l
+    left join {{ ref('stg_raw_airbnb_data__reviews') }} r 
+    on l.listing_id = r.listing_id
+    group by l.host_id
 ),
 
-host_activity AS (
-    SELECT 
+host_activity as (
+    select 
         h.host_id,
         h.host_name,
         h.is_superhost,
-        COALESCE(l.total_listings, 0) AS total_listings,  -- Ensure hosts with no listings appear
-        COALESCE(r.total_reviews, 0) AS total_reviews,  -- Ensure hosts with no reviews appear
-        DATEDIFF(DAY, h.created_at, CURRENT_DATE) AS days_active,
-        CASE 
-            WHEN r.total_reviews > 50 THEN 'Highly Engaged Host'
-            WHEN l.total_listings > 5 THEN 'Active Host'
-            ELSE 'Regular Host'
-        END AS host_engagement_category
-    FROM host_data h
-    LEFT JOIN listing_counts l ON h.host_id = l.host_id  -- LEFT JOIN ensures all hosts are included
-    LEFT JOIN review_counts r ON h.host_id = r.host_id
+        coalesce(l.total_listings, 0) as total_listings,  -- ensure hosts with no listings appear
+        coalesce(r.total_reviews, 0) as total_reviews,  -- ensure hosts with no reviews appear
+        datediff(day, h.created_at, current_date) as days_active,
+        case 
+            when r.total_reviews > 50 then 'highly engaged host'
+            when l.total_listings > 5 then 'active host'
+            else 'regular host'
+        end as host_engagement_category
+    from host_data h
+    left join listing_counts l on h.host_id = l.host_id  -- left join ensures all hosts are included
+    left join review_counts r on h.host_id = r.host_id
 )
 
-SELECT * FROM host_activity
+select * from host_activity

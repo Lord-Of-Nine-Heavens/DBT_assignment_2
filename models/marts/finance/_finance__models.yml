@@ -68,3 +68,25 @@ models:
         tests:
           - not_null
           - is_positive
+
+  - name: room_type_revenue
+    description: "Aggregates revenue data by room type, including total listings, total revenue, and average price per night."
+    columns:
+      - name: room_type
+        description: "Type of room offered in the listing (e.g., Entire home, Private room, Shared room)."
+        tests:
+          - not_null
+      - name: total_listings
+        description: "Total number of listings available for this room type."
+        tests:
+          - not_null
+      - name: total_revenue
+        description: "Total estimated revenue for this room type."
+        tests:
+          - not_null
+          - is_positive
+      - name: avg_price_per_night
+        description: "Average nightly rate for this room type."
+        tests:
+          - not_null
+          - is_positive
