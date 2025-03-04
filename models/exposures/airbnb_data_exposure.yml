@@ -1,0 +1,48 @@
+exposures:
+  - name: Host_Earnings
+    label: Host Earnings
+    type: dashboard
+    maturity: high
+    url:
+    description: Used in looker studio dashboard to show customer data and to analysis it.
+    depends_on:
+      - ref('host_earnings')
+    owner:
+      name: Ankur Falari
+      email: ankurfalari55@gmail.com
+
+  - name: Repeat_Customers
+    label: Repeat Customers
+    type: dashboard
+    maturity: high
+    url:
+    description: Used in looker studio dashboard to show product data and to analysis it.
+    depends_on:
+      - ref('repeat_customers')
+    owner:
+      name: Ankur Falari
+      email: ankurfalari55@gmail.com
+
+  - name: Listing_Popularity
+    label: Listing Popularity
+    type: dashboard
+    maturity: high
+    url:
+    description: Used in looker studio dashboard to show product data and to analysis it.
+    depends_on:
+      - ref('listing_popularity')
+    owner:
+      name: Ankur Falari
+      email: ankurfalari55@gmail.com
+
+  - name: Listing_Revenue
+    label: Listing Revenue
+    type: dashboard
+    maturity: high
+    url:
+    description: Used in looker studio dashboard to show product data and to analysis it.
+    depends_on:
+      - ref('listing_revenue')
+    owner:
+      name: Ankur Falari
+      email: ankurfalari55@gmail.com

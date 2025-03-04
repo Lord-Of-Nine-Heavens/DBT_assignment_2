@@ -1,13 +1,13 @@
-name: CI for dbt
+name: CI/CD for dbt
 
 on:
   push:
     branches:
-      - ankur-patch-1 # ✅ Runs CI when committing to ankur-patch-1
-      - main # ✅ Runs CI when committing to main
+      - ankur-patch-1
+      - main
   pull_request:
     branches:
-      - main # ✅ Runs CI when creating PR to main
+      - main
 
 jobs:
   dbt-test:
