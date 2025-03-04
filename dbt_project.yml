@@ -29,6 +29,11 @@ clean-targets: # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   dbt_assignment_2:
+    +pre-hook:
+      - "{{ audit_pre_hook(this.name) }}"
+    +post-hook:
+      - "{{ audit_post_hook(this.name) }}"
+      - "{{ print_audit_logs(this.name) }}"
     staging:
       +materialized: view
     marts:
