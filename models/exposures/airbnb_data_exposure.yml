@@ -3,7 +3,7 @@ exposures:
     label: Host Earnings
     type: dashboard
     maturity: high
-    url:
+    url: https://lookerstudio.google.com/reporting/eaff82df-395a-407c-bb7a-32b8df09c168
     description: Used in looker studio dashboard to show customer data and to analysis it.
     depends_on:
       - ref('host_earnings')
@@ -15,7 +15,7 @@ exposures:
     label: Repeat Customers
     type: dashboard
     maturity: high
-    url:
+    url: https://lookerstudio.google.com/reporting/eaff82df-395a-407c-bb7a-32b8df09c168
     description: Used in looker studio dashboard to show product data and to analysis it.
     depends_on:
       - ref('repeat_customers')
@@ -27,7 +27,7 @@ exposures:
     label: Listing Popularity
     type: dashboard
     maturity: high
-    url:
+    url: https://lookerstudio.google.com/reporting/eaff82df-395a-407c-bb7a-32b8df09c168
     description: Used in looker studio dashboard to show product data and to analysis it.
     depends_on:
       - ref('listing_popularity')
@@ -39,10 +39,34 @@ exposures:
     label: Listing Revenue
     type: dashboard
     maturity: high
-    url:
+    url: https://lookerstudio.google.com/reporting/eaff82df-395a-407c-bb7a-32b8df09c168
     description: Used in looker studio dashboard to show product data and to analysis it.
     depends_on:
       - ref('listing_revenue')
+    owner:
+      name: Ankur Falari
+      email: ankurfalari55@gmail.com
+
+  - name: Room_Type_Popularity
+    label: Room Type Popularity
+    type: dashboard
+    maturity: high
+    url: https://lookerstudio.google.com/reporting/eaff82df-395a-407c-bb7a-32b8df09c168
+    description: Used in looker studio dashboard to show product data and to analysis it.
+    depends_on:
+      - ref('room_type_popularity')
+    owner:
+      name: Ankur Falari
+      email: ankurfalari55@gmail.com
+
+  - name: Room_Type_Revenue
+    label: Room Type Revenue
+    type: dashboard
+    maturity: high
+    url: https://lookerstudio.google.com/reporting/eaff82df-395a-407c-bb7a-32b8df09c168
+    description: Used in looker studio dashboard to show product data and to analysis it.
+    depends_on:
+      - ref('room_type_revenue')
     owner:
       name: Ankur Falari
       email: ankurfalari55@gmail.com
