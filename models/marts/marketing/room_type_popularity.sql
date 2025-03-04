@@ -1,12 +1,12 @@
-WITH review_counts AS (
-    SELECT
+with review_counts as (
+    select
         l.room_type,
-        COUNT(r.review_id) AS total_reviews,
-        round(AVG(l.price_final), 2) AS avg_price_per_night
-    FROM {{ ref('stg_raw_airbnb_data__listings') }} l
-    LEFT JOIN {{ ref('stg_raw_airbnb_data__reviews') }} r 
-    ON l.listing_id = r.listing_id
-    GROUP BY l.room_type
+        count(r.review_id) as total_reviews,
+        round(avg(l.price_final), 2) as avg_price_per_night
+    from {{ ref('stg_raw_airbnb_data__listings') }} l
+    left join {{ ref('stg_raw_airbnb_data__reviews') }} r 
+    on l.listing_id = r.listing_id
+    group by l.room_type
 )
 
-SELECT * FROM review_counts
+select * from review_counts

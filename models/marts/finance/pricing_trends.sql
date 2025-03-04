@@ -5,37 +5,37 @@
     incremental_strategy='merge'
 ) }}
 
-WITH all_reviews AS (
-    -- Ensure we get all past and new reviews
-    SELECT listing_id, review_date
-    FROM {{ ref('stg_raw_airbnb_data__reviews') }}
+with all_reviews as (
+    -- ensure we get all past and new reviews
+    select listing_id, review_date
+    from {{ ref('stg_raw_airbnb_data__reviews') }}
 ),
 
-revenue_trends AS (
-    SELECT
+revenue_trends as (
+    select
         l.listing_id,
         r.review_date,
-        l.price_final * l.minimum_nights AS estimated_revenue,
-        SUM(l.price_final * l.minimum_nights) 
-            OVER (
-                PARTITION BY l.listing_id 
-                ORDER BY r.review_date 
-                ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
-            ) AS estimated_rolling_revenue
-    FROM {{ ref('stg_raw_airbnb_data__listings') }} l
-    JOIN all_reviews r ON l.listing_id = r.listing_id
+        l.price_final * l.minimum_nights as estimated_revenue,
+        sum(l.price_final * l.minimum_nights) 
+            over (
+                partition by l.listing_id 
+                order by r.review_date 
+                rows between unbounded preceding and current row
+            ) as estimated_rolling_revenue
+    from {{ ref('stg_raw_airbnb_data__listings') }} l
+    join all_reviews r on l.listing_id = r.listing_id
     {% if is_incremental() %}
-    WHERE r.review_date > (SELECT MAX(review_date) FROM {{ this }})
+    where r.review_date > (select max(review_date) from {{ this }})
     {% endif %}
 ),
 
-pricing_trends AS (
-    SELECT
+pricing_trends as (
+    select
         listing_id,
         review_date,
         estimated_revenue,
         estimated_rolling_revenue
-    FROM revenue_trends
+    from revenue_trends
 )
 
-SELECT * FROM pricing_trends
+select * from pricing_trends
