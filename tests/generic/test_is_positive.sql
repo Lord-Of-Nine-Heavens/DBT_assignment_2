@@ -13,7 +13,7 @@ validation_errors AS (
     SELECT
         positive_field
     FROM validation
-    -- If this is true, then positive_field is negative or zero!
+
     WHERE positive_field < 0
 
 )
