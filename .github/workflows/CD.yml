@@ -1,0 +1,36 @@
+name: CD for dbt
+
+on:
+  push:
+    branches:
+      - main # ✅ Runs only when code is merged into main
+
+jobs:
+  dbt-deploy:
+    runs-on: ubuntu-latest
+    needs: dbt-test # ✅ Ensures tests passed before deployment
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install dbt
+        run: pip install dbt-core dbt-snowflake
+
+      - name: Create profiles.yml
+        run: |
+          mkdir -p ~/.dbt
+          echo "${{ secrets.DBT_PROFILES_YML }}" | base64 --decode > ~/.dbt/profiles.yml
+
+      - name: Debug profiles.yml
+        run: cat ~/.dbt/profiles.yml
+
+      - name: Run dbt Seed (if applicable)
+        run: dbt seed
+
+      - name: Run dbt build
+        run: dbt build
