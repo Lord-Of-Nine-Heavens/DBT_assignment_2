@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: raw_airbnb
-    database: dbt_assignment2
+    database: DBT_DEMO
     schema: raw_airbnb_data
     description: "This is the source for the raw airbnb data"
     tables:
